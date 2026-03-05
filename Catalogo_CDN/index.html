@@ -16,9 +16,7 @@
 
 
     <!-- Links Google-->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=add" />
-
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
@@ -35,6 +33,11 @@
             <!-- Barra de nav dentro del id "app" ya que incluye el buscador con filtro-->
             <div class="container-fluid">
                 <a class="navbar-brand">TechMarket</a>
+
+                <a href="cart" class="me-2"><span class="material-symbols-outlined">
+                        shopping_cart
+                    </span></a>
+
                 <form class="d-flex" role="search">
                     <input class="form-control input-tech me-2" type="search" placeholder="Buscar producto..."
                         v-model="textoBusqueda">
@@ -56,9 +59,11 @@
                         <div class="card-body">
                             <h5>{{ producto.nombre }}</h5>
                             <p>{{ producto.descripcion }}</p>
-                            <p><strong>${{ producto.precio.toLocaleString() }}</strong></p> <!-- toLocalString formatea el precio con separador de miles -->
-                            
-                            <div v-if="producto.stock > 0"> <!-- If: Si el producto es mayor a 0 se muestra el stock y botón -->
+                            <p><strong>${{ producto.precio.toLocaleString() }}</strong></p>
+                            <!-- toLocalString formatea el precio con separador de miles -->
+
+                            <div v-if="producto.stock > 0">
+                                <!-- If: Si el producto es mayor a 0 se muestra el stock y botón -->
                                 <p>Stock disponible: {{ producto.stock }}</p>
 
                                 <button class="btn btn-tech btn-success">
@@ -67,7 +72,7 @@
                                     </span> Añadir al carro
                                 </button>
                             </div>
-                           
+
                             <div v-else> <!-- Else: si no se cumple el if, se activa v-else y se muestra el badge-->
                                 <span class="badge bg-danger">
                                     Producto Agotado
