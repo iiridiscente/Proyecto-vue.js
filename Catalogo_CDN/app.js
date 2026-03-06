@@ -7,8 +7,20 @@ createApp({
     data() {
         return {
             textoBusqueda: "",
+
             mostrarCarrito: false,
+            mostrarCheckout: false,
+            pasoCheckout: 1,
+
+            cliente: {
+                nombre: "",
+                email: "",
+                entrega: "",
+                pago: ""
+            },
+
             carrito: [],
+
             productos: [
                 // acá va la información de los productos: Nombre, descripción, precio, imagen y stock.
                 { id: 1, nombre: "Notebook", descripcion: "Portátil 14 pulgadas", precio: 500000, imagen: "assets/laptop.png", stock: 5 },
@@ -29,7 +41,19 @@ createApp({
             return this.productos.filter(p =>
                 p.nombre.toLowerCase().includes(this.textoBusqueda.toLowerCase())
             )
+        },
+
+        totalCarrito() {
+            return this.carrito.reduce(
+                (total, item) => total + item.precio * item.cantidad,
+                0
+            )
+        },
+
+        progreso() {
+            return (this.pasoCheckout / 3) * 100
         }
+
 
     },
 
@@ -37,15 +61,52 @@ createApp({
     methods: {
 
         agregarAlCarrito(producto) {
-            this.carrito.push(producto)
+
+            const item = this.carrito.find(p => p.id === producto.id)
+
+            if (item) {
+                item.cantidad++
+            } else {
+                this.carrito.push({
+                    ...producto,
+                    cantidad: 1
+                })
+            }
+
         },
 
-        eliminarDelCarrito(index) {
+        aumentarCantidad(item) {
+            item.cantidad++
+        },
+
+        disminuirCantidad(item) {
+
+            if (item.cantidad > 1) {
+                item.cantidad--
+            } else {
+                this.eliminarDelCarrito(item)
+            }
+
+        },
+
+        eliminarDelCarrito(item) {
+
+            const index = this.carrito.indexOf(item)
+
             this.carrito.splice(index, 1)
+
         },
 
-        vaciarCarrito() {
-            this.carrito = []
+        abrirCheckout() {
+            this.mostrarCheckout = true
+        },
+
+        siguientePaso() {
+            this.pasoCheckout++
+        },
+
+        finalizarCompra() {
+            this.pasoCheckout = 3
         }
 
     }

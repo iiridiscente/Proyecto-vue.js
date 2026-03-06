@@ -25,6 +25,35 @@ body {
 }
 
 
+/* Hero */
+.hero h1 {
+    font-size: 3rem;
+    font-weight: 700;
+}
+
+.carousel-caption {
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* centra vertical */
+    align-items: center;
+    /* centra horizontal */
+    text-align: center;
+}
+
+.btn-tech {
+    margin-top: 10px;
+}
+
+.carousel-item img {
+    filter: brightness(70%);
+    height: 40rem;
+    object-fit: cover;
+    object-position: top;
+}
+
 
 
 /* Input Buscador*/
@@ -109,5 +138,3 @@ body {
     background-color: #1e3888;
     transform: scale(1.03);
 }
-
-

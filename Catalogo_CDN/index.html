@@ -26,82 +26,343 @@
 <body>
 
 
-
     <div id="app"> <!-- Esta es la raiz de Vue-->
 
-        <nav class="navbar navbar-tech sticky-top">
-            <!-- Barra de nav dentro del id "app" ya que incluye el buscador con filtro-->
-            <div class="container-fluid">
-                <a class="navbar-brand">TechMarket</a>
+        <!-- Section: Nav bar -->
+        <section class="navbar">
+            <nav class="navbar navbar-tech sticky-top">
+                <!-- Barra de nav dentro del id "app" ya que incluye el buscador con filtro-->
+                <div class="container-fluid">
+                    <a class="navbar-brand">TechMarket</a>
 
-                <a href="#" class="position-relative" @click="mostrarCarrito = !mostrarCarrito">
-                    <!-- Cuando el usuario hace click se abre el v-if "mostrarCarrito"-->
-                    <span class="material-symbols-outlined">
-                        shopping_cart
-                    </span>
-                </a>
+                    <a href="#" class="position-relative" @click="mostrarCarrito = !mostrarCarrito">
+                        <!-- Cuando el usuario hace click se abre el v-if "mostrarCarrito"-->
+                        <span class="material-symbols-outlined">
+                            shopping_cart
+                        </span>
+                    </a>
 
-                <form class="d-flex" role="search">
-                    <input class="form-control input-tech me-2" type="search" placeholder="Buscar producto..."
-                        v-model="textoBusqueda">
-                </form>
+                    <form class="d-flex" role="search">
+                        <input class="form-control input-tech me-2" type="search" placeholder="Buscar producto..."
+                            v-model="textoBusqueda">
+                    </form>
+                </div>
+            </nav>
+
+
+            <div v-if="mostrarCarrito" class="container mt-3">
+
+                <h4>Carrito</h4>
+
+                <ul class="list-group">
+
+                    <li class="list-group-item" v-for="(item, index) in carrito">
+
+                        {{ item.nombre }} - ${{ item.precio.toLocaleString() }}
+
+
+                        <button @click="disminuirCantidad(item)">-</button>
+                        {{ item.cantidad }}
+                        <button @click="aumentarCantidad(item)">+</button>
+
+
+                        <button @click="eliminarDelCarrito(index)">
+                            eliminar
+                        </button>
+
+                    </li>
+
+                </ul>
+
+                <p>Total: ${{ totalCarrito.toLocaleString() }}</p>
+
+                <button class="btn btn-tech" @click="abrirCheckout">Continuar Compra</button>
+
             </div>
-        </nav>
 
-        <div v-if="mostrarCarrito" class="container mt-3">
+        </section>
 
-            <h4>Carrito</h4>
 
-            <ul class="list-group">
+        <!-- Section: Hero -->
 
-                <li class="list-group-item" v-for="item in carrito">
+        <section class="hero">
+            <div id="carouselExample" class="carousel slide">
 
-                    {{ item.nombre }} - ${{ item.precio }}
+                <div class="carousel-inner">
 
-                </li>
+                    <!-- Slide 1 -->
+                    <div class="carousel-item active">
 
-            </ul>
-            <p>Total: ${{ totalCarrito }}</p>
+                        <img src="assets/hero-image1.jpg" class="d-block w-100" alt="Realidad virtual">
 
-        </div>
+                        <div class="carousel-caption">
+                            <h1>Explora la tecnología del futuro</h1>
+                            <p>Realidad virtual y periféricos innovadores</p>
+                            <button class="btn btn-tech">Ver productos</button>
+                        </div>
 
-        <div class="container mt-4">
-            <div class="row">
+                    </div>
 
-                <!-- la información se ordena en columnas-->
-                <div class="col-md-4 mb-4" v-for="producto in productosFiltrados" :key="producto.id">
-                    <div class="card card-tech h-100"
-                        :class="{ 'card-highlight': producto.stock <= 3 && producto.stock > 0 }">
-                        <img :src="producto.imagen" class="card-img-top">
+                    <!-- Slide 2 -->
+                    <div class="carousel-item">
 
-                        <!-- diagramación de la tarjeta -->
-                        <div class="card-body">
-                            <h5>{{ producto.nombre }}</h5>
-                            <p>{{ producto.descripcion }}</p>
-                            <p><strong>${{ producto.precio.toLocaleString() }}</strong></p>
-                            <!-- toLocalString formatea el precio con separador de miles -->
+                        <img src="assets/hero-image2.jpg" class="d-block w-100" alt="Creatividad digital">
 
-                            <div v-if="producto.stock > 0">
-                                <!-- If: Si el producto es mayor a 0 se muestra el stock y botón -->
-                                <p>Stock disponible: {{ producto.stock }}</p>
+                        <div class="carousel-caption">
+                            <h1>Crea sin límites</h1>
+                            <p>Tablets y herramientas para creadores digitales</p>
+                            <button class="btn btn-tech">Explorar accesorios</button>
+                        </div>
 
-                                <button class="btn btn-tech btn-success" @click="agregarAlCarrito(producto)"> <span
-                                        class="material-symbols-outlined">
-                                        add
-                                    </span> Añadir al carro
-                                </button>
+                    </div>
+
+                    <!-- Slide 3 -->
+                    <div class="carousel-item">
+
+                        <img src="assets/hero-image3.jpg" class="d-block w-100" alt="Setup profesional">
+
+                        <div class="carousel-caption">
+                            <h1>Potencia tu trabajo</h1>
+                            <p>Notebooks y monitores para tu setup ideal</p>
+                            <button class="btn btn-tech">Ver notebooks</button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+
+            </div>
+        </section>
+
+        <!-- Sección: Categorías -->
+        <section class="categories py-5">
+
+            <div class="container">
+
+                <h2 class="text-center mb-5">Explora nuestras categorías</h2>
+
+                <div class="row g-4">
+
+                    <!-- Categoria -->
+                    <div class="col-md-3">
+                        <div class="card category-card">
+                            <img src="assets/categoria-audio.jpg" class="card-img-top" alt="Audio y video">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Audio & Video</h5>
                             </div>
+                        </div>
+                    </div>
 
-                            <div v-else> <!-- Else: si no se cumple el if, se activa v-else y se muestra el badge-->
-                                <span class="badge bg-danger">
-                                    Producto Agotado
-                                </span>
+                    <!-- Categoria -->
+                    <div class="col-md-3">
+                        <div class="card category-card">
+                            <img src="assets/categoria-computo.jpg" class="card-img-top" alt="Computación">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Computación</h5>
                             </div>
+                        </div>
+                    </div>
 
+                    <!-- Categoria -->
+                    <div class="col-md-3">
+                        <div class="card category-card">
+                            <img src="assets/categoria-accesorios.jpg" class="card-img-top" alt="Accesorios">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Accesorios</h5>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Categoria -->
+                    <div class="col-md-3">
+                        <div class="card category-card">
+                            <img src="assets/categoria-gaming.jpg" class="card-img-top" alt="Gaming">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Gaming</h5>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Sección: Productos -->
+
+        <section class="products">
+            <div class="container mt-4">
+                <div class="row">
+
+                    <!-- la información se ordena en columnas-->
+                    <div class="col-md-4 mb-4" v-for="producto in productosFiltrados" :key="producto.id">
+                        <div class="card card-tech h-100"
+                            :class="{ 'card-highlight': producto.stock <= 3 && producto.stock > 0 }">
+                            <img :src="producto.imagen" class="card-img-top">
+
+                            <!-- diagramación de la tarjeta -->
+                            <div class="card-body">
+                                <h5>{{ producto.nombre }}</h5>
+                                <p>{{ producto.descripcion }}</p>
+                                <p><strong>${{ producto.precio.toLocaleString() }}</strong></p>
+                                <!-- toLocalString formatea el precio con separador de miles -->
+
+                                <div v-if="producto.stock > 0">
+                                    <!-- If: Si el producto es mayor a 0 se muestra el stock y botón -->
+                                    <p>Stock disponible: {{ producto.stock }}</p>
+
+                                    <button class="btn btn-tech btn-success" @click="agregarAlCarrito(producto)"> <span
+                                            class="material-symbols-outlined">
+                                            add
+                                        </span> Añadir al carro
+                                    </button>
+                                </div>
+
+                                <div v-else> <!-- Else: si no se cumple el if, se activa v-else y se muestra el badge-->
+                                    <span class="badge bg-danger">
+                                        Producto Agotado
+                                    </span>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </section>
+
+
+
+        <!-- Modal-->
+        <div v-if="mostrarCheckout" class="modal fade show" style="display:block; background: rgba(0,0,0,0.5);">
+
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title">Finalizar compra</h5>
+
+                        <button class="btn-close" @click="mostrarCheckout = false"></button>
+                    </div>
+
+                    <div class="progress mb-3">
+
+                        <div class="progress-bar" role="progressbar" :style="{ width: progreso + '%' }"
+                            :aria-valuenow="progreso" aria-valuemin="0" aria-valuemax="100">
+
+                            Paso {{ pasoCheckout }} de 3
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="modal-body">
+
+                        <!-- paso 1: Ingresar datos del comprador -->
+                        <div v-if="pasoCheckout === 1">
+
+                            <h5>Datos del comprador</h5>
+
+                            <div class="mb-2">
+                                <label for="name">Ingresa tu nombre</label>
+                                <input v-model="cliente.nombre" class="form-control" placeholder="Nombre Apellido">
+                            </div>
+
+                            <div class="mb-2">
+                                <label for="email">Ingresa tu email</label>
+                                <input v-model="cliente.email" class="form-control" placeholder="Correo electrónico">
+                            </div>
+
+                            <div class="mb-2">
+                                <label for="delivery">Selecciona el tipo de entrega</label>
+                                <select v-model="cliente.entrega" class="form-select">
+                                    <option value="retiro">Retiro en tienda</option>
+                                    <option value="despacho">Despacho a domicilio</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-2">
+                                <label for="payment">Selecciona método de pago </label>
+                                <select v-model="cliente.pago" class="form-select">
+                                    <option>Tarjeta de Débito</option>
+                                    <option>Tarjeta de Crédito</option>
+                                    <option>Tarjeta de Prepago</option>
+                                    <option>Gift Card</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <!-- paso 2: Resumen del pedido + compr -->
+                        <div v-if="pasoCheckout === 2">
+
+                            <h5>Resumen del pedido</h5>
+
+                            <ul class="list-group mb-3">
+                                <li class="list-group-item" v-for="item in carrito">
+
+                                    {{ item.nombre }}
+                                    x {{ item.cantidad }}
+
+                                    - ${{ (item.precio * item.cantidad).toLocaleString() }}
+
+                                </li>
+                            </ul>
+
+                            <h5>
+                                Total: ${{ totalCarrito.toLocaleString() }}
+                            </h5>
+
+                        </div>
+
+                        <!-- 3 -->
+                        <div v-if="pasoCheckout === 3">
+
+                            <h4 class="text-success">
+                                ✅ Compra realizada con éxito
+                            </h4>
+
+                            <p>
+                                Gracias por tu compra {{ cliente.nombre }} . Recibirás un correo con el detalle de tu
+                                compra.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <!-- FOOTER -->
+                    <div class="modal-footer">
+
+                        <button class="btn btn-secondary" @click="mostrarCheckout = false">
+                            Cancelar
+                        </button>
+
+                        <button v-if="pasoCheckout === 1" class="btn btn-primary" @click="siguientePaso">
+                            Continuar
+                        </button>
+
+                        <button v-if="pasoCheckout === 2" class="btn btn-success" @click="finalizarCompra">
+                            Confirmar pago
+                        </button>
+
+                    </div>
+
+                </div>
+            </div>
+
         </div>
 
     </div>
