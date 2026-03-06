@@ -149,9 +149,9 @@
 
             <div class="container">
 
-                <h2 class="text-center mb-5">Explora nuestras categorías</h2>
+                <h2 class="text-center mb-4">Explora nuestras categorías</h2>
 
-                <div class="category-tags">
+                <div class="category-tags mb-4">
 
                     <!-- Al hacer clic en una categoría se activa o desactiva, y los productos se filtran según la categoría seleccionada -->
                     <div class="category-tag" :class="{ active: categoriaSeleccionada === 'audio' }"
@@ -180,10 +180,11 @@
 
                 </div>
 
-                <form class="d-flex" role="search">
-                    <input class="form-control input-tech me-2" type="search" placeholder="Buscar producto..."
-                        v-model="textoBusqueda">
-                </form>
+                <!-- Buscador -->
+                <div class="search-wrapper">
+                    <span class="search-icon material-symbols-outlined">search</span>
+                    <input class="input-tech" type="search" placeholder="Buscar producto..." v-model="textoBusqueda">
+                </div>
 
             </div>
 
@@ -212,10 +213,9 @@
                                     <!-- If: Si el producto es mayor a 0 se muestra el stock y botón -->
                                     <p>Stock disponible: {{ producto.stock }}</p>
 
-                                    <button class="btn btn-tech btn-success" @click="agregarAlCarrito(producto)"> <span
-                                            class="material-symbols-outlined">
-                                            add
-                                        </span> Añadir al carro
+                                    <button class="btn btn-tech btn-success" @click="agregarAlCarrito(producto)">
+                                        <span class="material-symbols-outlined">add</span>
+                                        Añadir al carro
                                     </button>
                                 </div>
 
@@ -231,7 +231,6 @@
                 </div>
             </div>
         </section>
-
 
 
         <!-- Modal-->

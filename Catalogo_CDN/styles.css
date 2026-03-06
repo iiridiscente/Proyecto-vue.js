@@ -220,34 +220,23 @@ body {
     transform: scale(1.03);
 }
 
-/* =======================
-   Input Buscador
-======================= */
-.input-tech {
-    background-color: #0f0f0f0f;
-    color: #ffffff;
-    border-radius: 10px;
-}
-
-.input-tech::placeholder {
-    color: #0f0f0f3d;
-    opacity: 1;
-}
-
-.input-tech:focus {
-    background-color: #0f0f0f0f;
-    border-color: #325FEB;
-    box-shadow: 0 0 0 0.2rem rgba(50, 95, 235, 0.25);
-    color: #0f0f0f;
-}
 
 /* =======================
    Categorías
 ======================= */
+.categories {
+    background-color: #f6f5fc;
+}
+
+.categories h2 {
+    font-weight: 700;
+    color: #0f0f0f;
+}
+
 .category-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 12px;
     justify-content: center;
 }
 
@@ -255,24 +244,78 @@ body {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 12px 20px;
+    padding: 10px 20px;
     border-radius: 30px;
     background: #ffffff;
     color: #444;
     font-weight: 500;
+    font-size: 0.9rem;
     cursor: pointer;
-    transition: all 0.25s ease;
+    border: 1.5px solid #e0ddf7;
+    transition: all 0.22s ease;
+    user-select: none;
 }
 
 .category-tag:hover {
     background: #ece6ff;
     color: #5a3df0;
+    border-color: #c4b5fd;
 }
 
 .category-tag.active {
     background: #7c4dff;
-    color: white;
+    color: #fff;
+    border-color: #7c4dff;
+    box-shadow: 0 4px 14px rgba(124, 77, 255, 0.3);
 }
+
+.category-tag .material-symbols-outlined {
+    font-size: 20px;
+}
+
+/* =======================
+   Buscador
+======================= */
+.search-wrapper {
+    position: relative;
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+.search-wrapper .search-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9985cc;
+    font-size: 20px;
+    pointer-events: none;
+}
+
+.input-tech {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 2.75rem;
+    border-radius: 50px;
+    border: 1.5px solid #ddd8f8;
+    background-color: #ffffff;
+    color: #0f0f0f;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    /* quita el botón nativo de "borrar" en algunos browsers */
+    -webkit-appearance: none;
+}
+
+.input-tech::placeholder {
+    color: #b0a8cc;
+}
+
+.input-tech:focus {
+    border-color: #7c4dff;
+    box-shadow: 0 0 0 3px rgba(124, 77, 255, 0.15);
+    background-color: #fff;
+}
+
 
 /* =======================
    Cards
