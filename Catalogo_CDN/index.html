@@ -27,16 +27,19 @@
 
 
 
-    <div id="app">
+    <div id="app"> <!-- Esta es la raiz de Vue-->
 
         <nav class="navbar navbar-tech sticky-top">
             <!-- Barra de nav dentro del id "app" ya que incluye el buscador con filtro-->
             <div class="container-fluid">
                 <a class="navbar-brand">TechMarket</a>
 
-                <a href="cart" class="me-2"><span class="material-symbols-outlined">
+                <a href="#" class="position-relative" @click="mostrarCarrito = !mostrarCarrito">
+                    <!-- Cuando el usuario hace click se abre el v-if "mostrarCarrito"-->
+                    <span class="material-symbols-outlined">
                         shopping_cart
-                    </span></a>
+                    </span>
+                </a>
 
                 <form class="d-flex" role="search">
                     <input class="form-control input-tech me-2" type="search" placeholder="Buscar producto..."
@@ -45,8 +48,21 @@
             </div>
         </nav>
 
-        <div class="cart"> 
-            <h1>Carro de compras</h1>
+        <div v-if="mostrarCarrito" class="container mt-3">
+
+            <h4>Carrito</h4>
+
+            <ul class="list-group">
+
+                <li class="list-group-item" v-for="item in carrito">
+
+                    {{ item.nombre }} - ${{ item.precio }}
+
+                </li>
+
+            </ul>
+            <p>Total: ${{ totalCarrito }}</p>
+
         </div>
 
         <div class="container mt-4">
@@ -69,8 +85,8 @@
                                 <!-- If: Si el producto es mayor a 0 se muestra el stock y botón -->
                                 <p>Stock disponible: {{ producto.stock }}</p>
 
-                                <button class="btn btn-tech btn-success">
-                                    <span class="material-symbols-outlined">
+                                <button class="btn btn-tech btn-success" @click="agregarAlCarrito(producto)"> <span
+                                        class="material-symbols-outlined">
                                         add
                                     </span> Añadir al carro
                                 </button>
