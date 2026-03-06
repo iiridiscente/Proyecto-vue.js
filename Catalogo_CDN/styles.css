@@ -354,7 +354,7 @@ body {
 
 .carousel-item img {
     filter: brightness(70%);
-    height: 40rem;
+    height: 35rem;
     object-fit: cover;
     object-position: top;
 }
@@ -576,7 +576,7 @@ body {
     overflow: hidden;
     box-shadow: 0 2px 12px rgba(124, 77, 255, 0.06);
     transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .card-tech:hover {
@@ -631,7 +631,7 @@ body {
 }
 
 /* Stock disponible */
-.card-tech .card-body > div > p {
+.card-tech .card-body>div>p {
     font-size: 0.8rem;
     color: #b0a8cc;
     margin-bottom: 0.75rem;
@@ -943,25 +943,73 @@ body {
    Footer
 ======================= */
 .footer-tech {
-    background-color: #222;
-    color: #fff;
-    padding: 2rem 1rem;
+    background-color: #0f0b1e !important;
+    padding: 3rem 0 2rem !important;
+    border-top: 1.5px solid rgba(167, 139, 250, 0.15);
 }
 
-.footer-tech a {
-    color: #fff;
-    text-decoration: underline;
-    transition: color 0.3s ease;
+.footer-tech .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
 }
 
-.footer-tech a:hover {
-    color: #ccc;
+.footer-tech p {
+    margin: 0;
+    font-size: 0.875rem;
+    color: #9985cc;
+    line-height: 1.7;
+}
+
+/* Copyright */
+.footer-tech p:first-child {
+    font-weight: 600;
+    color: #ffffff;
+    font-size: 0.95rem;
+}
+
+/* Línea separadora entre párrafos */
+.footer-tech p:nth-child(2) {
+    padding-top: 1rem;
+    border-top: 1.5px solid rgba(167, 139, 250, 0.12);
+    width: 100%;
+    text-align: center;
+}
+
+.footer-tech p:last-child {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+/* Links de contacto */
+.footer-tech a.text-white {
+    color: #a78bfa !important;
     text-decoration: none;
+    transition: color 0.25s ease;
 }
 
-.footer-tech i {
+.footer-tech a.text-white:hover {
+    color: #ffffff !important;
+}
+
+/* Iconos redes sociales */
+.footer-tech .bi {
     font-size: 1.2rem;
-    vertical-align: middle;
+    color: #9985cc;
+    transition: color 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    display: inline-block;
+}
+
+.footer-tech a.text-white:has(.bi):hover .bi {
+    color: #a78bfa;
+    transform: translateY(-3px);
+}
+
+/* me-2 override para los iconos */
+.footer-tech .me-2 {
+    margin-right: 0 !important;
 }
 
 /* =======================
