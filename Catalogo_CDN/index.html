@@ -30,58 +30,56 @@
 
     <div id="app"> <!-- Esta es la raiz de Vue-->
 
-        <!-- Section: Nav bar -->
+        <!-- Navbar -->
         <section class="navbar">
             <nav class="navbar navbar-tech sticky-top">
-                <!-- Barra de nav dentro del id "app" ya que incluye el buscador con filtro-->
                 <div class="container-fluid">
                     <a class="navbar-brand">TechMarket</a>
 
+                    <!-- Icono carrito -->
                     <a href="#" class="position-relative" @click="mostrarCarrito = !mostrarCarrito">
-                        <!-- Cuando el usuario hace click se abre el v-if "mostrarCarrito"-->
-                        <span class="material-symbols-outlined">
-                            shopping_cart
+                        <span class="material-symbols-outlined">shopping_cart</span>
+                        <span v-if="carrito.length" class="badge ...">
+                            {{ carrito.reduce((total, item) => total + item.cantidad, 0) }}
                         </span>
                     </a>
-
-                    <form class="d-flex" role="search">
-                        <input class="form-control input-tech me-2" type="search" placeholder="Buscar producto..."
-                            v-model="textoBusqueda">
-                    </form>
                 </div>
             </nav>
 
+            <!-- Modal carrito -->
+            <transition name="fade">
+                <div v-if="mostrarCarrito" class="modal-carrito" @click.self="mostrarCarrito = false">
+                    <div class="modal-content">
+                        <h4>
+                            Carrito
+                            <button class="cerrar" @click="mostrarCarrito = false">✕</button>
+                        </h4>
 
-            <div v-if="mostrarCarrito" class="container mt-3">
+                        <ul class="list-group">
+                            <li class="list-group-item" v-for="(item, index) in carrito" :key="item.id">
+                                <div class="producto-info">
+                                    <span class="nombre">{{ item.nombre }}</span>
+                                    <span class="precio">${{ item.precio.toLocaleString() }}</span>
+                                </div>
 
-                <h4>Carrito</h4>
+                                <div class="cantidad-botones">
+                                    <button @click="disminuirCantidad(item)">-</button>
+                                    <span>{{ item.cantidad }}</span>
+                                    <button @click="aumentarCantidad(item)">+</button>
+                                    <button @click="eliminarDelCarrito(index)">eliminar</button>
+                                </div>
+                            </li>
+                        </ul>
 
-                <ul class="list-group">
+                        <div class="total">
+                            <span>Total:</span>
+                            <span>${{ totalCarrito.toLocaleString() }}</span>
+                        </div>
 
-                    <li class="list-group-item" v-for="(item, index) in carrito">
-
-                        {{ item.nombre }} - ${{ item.precio.toLocaleString() }}
-
-
-                        <button @click="disminuirCantidad(item)">-</button>
-                        {{ item.cantidad }}
-                        <button @click="aumentarCantidad(item)">+</button>
-
-
-                        <button @click="eliminarDelCarrito(index)">
-                            eliminar
-                        </button>
-
-                    </li>
-
-                </ul>
-
-                <p>Total: ${{ totalCarrito.toLocaleString() }}</p>
-
-                <button class="btn btn-tech" @click="abrirCheckout">Continuar Compra</button>
-
-            </div>
-
+                        <button class="btn btn-tech btn-compra" @click="abrirCheckout">Continuar Compra</button>
+                    </div>
+                </div>
+            </transition>
         </section>
 
 
@@ -182,6 +180,11 @@
 
                 </div>
 
+                <form class="d-flex" role="search">
+                    <input class="form-control input-tech me-2" type="search" placeholder="Buscar producto..."
+                        v-model="textoBusqueda">
+                </form>
+
             </div>
 
         </section>
@@ -238,8 +241,6 @@
                 <div class="modal-content">
 
                     <div class="modal-header">
-                        <h5 class="modal-title">Finalizar compra</h5>
-
                         <button class="btn-close" @click="mostrarCheckout = false"></button>
                     </div>
 

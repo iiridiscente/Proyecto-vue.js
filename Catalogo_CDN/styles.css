@@ -1,14 +1,17 @@
-/* Global */
-
+/* =======================
+   Global
+======================= */
 body {
     background-color: #f6f5fc;
     font-family: "Open Sans", sans-serif;
     color: #0f0f0f;
+    margin: 0;
+    padding: 0;
 }
 
-
-
-/* Navbar */
+/* =======================
+   Navbar
+======================= */
 .navbar-tech {
     background-color: #f6f5fc;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -18,14 +21,162 @@ body {
 .navbar-tech .navbar-brand {
     color: #0f0f0f;
     font-weight: bold;
+    text-decoration: none;
 }
 
 .navbar-tech .navbar-brand:hover {
     color: #325FEB;
 }
 
+/* =======================
+   Modal Carrito
+======================= */
+.modal-carrito {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: flex-end;
+    z-index: 2000;
+    overflow-y: auto;
+}
 
-/* Hero */
+.modal-content {
+    background-color: #fff;
+    width: 360px;
+    max-width: 90%;
+    height: 100%;
+    padding: 2rem 1.5rem;
+    box-shadow: -6px 0 20px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Encabezado modal */
+.modal-content h4 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #3a3a3a;
+}
+
+.cerrar {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #888;
+    transition: color 0.2s;
+}
+
+.cerrar:hover {
+    color: #325FEB;
+}
+
+/* Lista de productos */
+.list-group {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.list-group-item {
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f8ff;
+    border-radius: 12px;
+    padding: 0.8rem 1rem;
+    margin-bottom: 0.8rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.producto-info {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.cantidad-botones {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.cantidad-botones button {
+    background-color: #6c63ff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 0.3rem 0.6rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+
+.cantidad-botones button:hover {
+    background-color: #5048c8;
+}
+
+.cantidad-botones .eliminar {
+    background-color: #ff5f5f;
+}
+
+.cantidad-botones .eliminar:hover {
+    background-color: #e63946;
+}
+
+/* Total */
+.total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-top: 1rem;
+}
+
+/* Botón continuar compra */
+.btn-compra {
+    margin-top: 1rem;
+    width: 100%;
+    padding: 0.8rem 1rem;
+    font-weight: 600;
+    border-radius: 10px;
+    background-color: #325FEB;
+    color: #fff;
+    transition: background-color 0.3s;
+}
+
+.btn-compra:hover {
+    background-color: #203bbf;
+}
+
+/* Transición modal */
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.3s;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
+}
+
+.fade-enter-to,
+.fade-leave-from {
+    opacity: 1;
+}
+
+/* =======================
+   Hero / Carousel
+======================= */
 .hero h1 {
     font-size: 3rem;
     font-weight: 700;
@@ -37,14 +188,8 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* centra vertical */
     align-items: center;
-    /* centra horizontal */
     text-align: center;
-}
-
-.btn-tech {
-    margin-top: 10px;
 }
 
 .carousel-item img {
@@ -54,10 +199,30 @@ body {
     object-position: top;
 }
 
+.btn-tech {
+    margin-top: 10px;
+    background-color: #325FEB;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 0.6rem 1rem;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
 
+.btn-tech:hover {
+    background-color: #1e3888;
+    transform: scale(1.03);
+}
 
-/* Input Buscador*/
-
+/* =======================
+   Input Buscador
+======================= */
 .input-tech {
     background-color: #0f0f0f0f;
     color: #ffffff;
@@ -76,9 +241,9 @@ body {
     color: #0f0f0f;
 }
 
-
-/* Categorías */
-
+/* =======================
+   Categorías
+======================= */
 .category-tags {
     display: flex;
     flex-wrap: wrap;
@@ -90,16 +255,12 @@ body {
     display: flex;
     align-items: center;
     gap: 8px;
-
     padding: 12px 20px;
     border-radius: 30px;
-
     background: #ffffff;
     color: #444;
-
     font-weight: 500;
     cursor: pointer;
-
     transition: all 0.25s ease;
 }
 
@@ -113,7 +274,9 @@ body {
     color: white;
 }
 
-/* Cards */
+/* =======================
+   Cards
+======================= */
 .card-tech {
     background-color: #eae9fb;
     border: 1px solid rgba(255, 255, 255, 0.04);
@@ -147,30 +310,28 @@ body {
     font-size: 1.3rem;
 }
 
-
-
-
-/* Botones */
-.btn-tech {
-    background-color: #325FEB;
-    color: #ffffff;
-    border: none;
-    border-radius: 10px;
-    padding: 0.6rem 1rem;
-    font-size: 14px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-
-    transition: background-color 0.2s ease, transform 0.2s ease;
+/* =======================
+   Footer
+======================= */
+.footer-tech {
+    background-color: #222;
+    color: #fff;
+    padding: 2rem 1rem;
 }
 
-.btn-tech:hover {
-    background-color: #1e3888;
-    transform: scale(1.03);
+.footer-tech a {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.footer-tech a:hover {
+    color: #ccc;
+    text-decoration: none;
+}
+
+.footer-tech i {
+    font-size: 1.2rem;
+    vertical-align: middle;
 }
 
 /* Footer */

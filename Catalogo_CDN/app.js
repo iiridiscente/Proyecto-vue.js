@@ -103,16 +103,13 @@ createApp({
 
         },
 
-        eliminarDelCarrito(item) {
-
-            const index = this.carrito.indexOf(item)
-
+        eliminarDelCarrito(index) {
             this.carrito.splice(index, 1)
-
         },
 
         abrirCheckout() {
             this.mostrarCheckout = true
+            this.mostrarCarrito = false // para que se cierre cuando se abra el modal de compra
         },
 
         siguientePaso() {
@@ -133,7 +130,7 @@ createApp({
 
         },
 
-        
+
 
     }
 
