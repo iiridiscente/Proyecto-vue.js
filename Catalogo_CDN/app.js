@@ -33,9 +33,9 @@ createApp({
 
                 // acá va la información de los productos: Nombre, descripción, precio, imagen y stock.
                 { id: 1, nombre: "Notebook", descripcion: "Portátil 14 pulgadas", precio: 500000, imagen: "assets/laptop.png", stock: 5, categoria: "computacion" },
-                { id: 2, nombre: "Mouse", descripcion: "Mouse inalámbrico", precio: 15000, imagen: "assets/mouse.png", stock: 0, categoria: "accesorios" },
+                { id: 2, nombre: "Mouse", descripcion: "Mouse inalámbrico", precio: 15000, imagen: "assets/mouse.png", stock: 10, categoria: "accesorios" },
                 { id: 3, nombre: "Teclado", descripcion: "Teclado mecánico", precio: 35000, imagen: "assets/keyboard.png", stock: 3, categoria: "accesorios" },
-                { id: 4, nombre: "Monitor", descripcion: "Monitor 24 pulgadas", precio: 120000, imagen: "assets/monitor.png", stock: 0, categoria: "gaming" },
+                { id: 4, nombre: "Monitor", descripcion: "Monitor 24 pulgadas", precio: 120000, imagen: "assets/monitor.png", stock: 40, categoria: "gaming" },
                 { id: 5, nombre: "Audífonos", descripcion: "Cancelación de ruido", precio: 45000, imagen: "assets/headphones.png", stock: 8, categoria: "audio" },
                 { id: 6, nombre: "Webcam", descripcion: "Full HD", precio: 30000, imagen: "assets/webcam.png", stock: 0, categoria: "accesorios" },
                 { id: 7, nombre: "Disco", descripcion: "Disco", precio: 60000, imagen: "assets/disco.png", stock: 3, categoria: "accesorios" }
@@ -97,7 +97,7 @@ createApp({
             setTimeout(() => {
                 this.toast.visible = false
             }, 2500)
-            
+
         },
 
         aumentarCantidad(item) {
