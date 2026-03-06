@@ -21,15 +21,19 @@ createApp({
 
             carrito: [],
 
+            categoriaSeleccionada: null,
+
             productos: [
+
+
                 // acá va la información de los productos: Nombre, descripción, precio, imagen y stock.
-                { id: 1, nombre: "Notebook", descripcion: "Portátil 14 pulgadas", precio: 500000, imagen: "assets/laptop.png", stock: 5 },
-                { id: 2, nombre: "Mouse", descripcion: "Mouse inalámbrico", precio: 15000, imagen: "assets/mouse.png", stock: 0 },
-                { id: 3, nombre: "Teclado", descripcion: "Teclado mecánico", precio: 35000, imagen: "assets/keyboard.png", stock: 3 },
-                { id: 4, nombre: "Monitor", descripcion: "Monitor 24 pulgadas", precio: 120000, imagen: "assets/monitor.png", stock: 0 },
-                { id: 5, nombre: "Audífonos", descripcion: "Cancelación de ruido", precio: 45000, imagen: "assets/headphones.png", stock: 8 },
-                { id: 6, nombre: "Webcam", descripcion: "Full HD", precio: 30000, imagen: "assets/webcam.png", stock: 0 },
-                { id: 7, nombre: "Disco", descripcion: "Disco", precio: 60000, imagen: "assets/disco.png", stock: 3 }
+                { id: 1, nombre: "Notebook", descripcion: "Portátil 14 pulgadas", precio: 500000, imagen: "assets/laptop.png", stock: 5, categoria: "computacion" },
+                { id: 2, nombre: "Mouse", descripcion: "Mouse inalámbrico", precio: 15000, imagen: "assets/mouse.png", stock: 0, categoria: "accesorios" },
+                { id: 3, nombre: "Teclado", descripcion: "Teclado mecánico", precio: 35000, imagen: "assets/keyboard.png", stock: 3, categoria: "accesorios" },
+                { id: 4, nombre: "Monitor", descripcion: "Monitor 24 pulgadas", precio: 120000, imagen: "assets/monitor.png", stock: 0, categoria: "gaming" },
+                { id: 5, nombre: "Audífonos", descripcion: "Cancelación de ruido", precio: 45000, imagen: "assets/headphones.png", stock: 8, categoria: "audio" },
+                { id: 6, nombre: "Webcam", descripcion: "Full HD", precio: 30000, imagen: "assets/webcam.png", stock: 0, categoria: "accesorios" },
+                { id: 7, nombre: "Disco", descripcion: "Disco", precio: 60000, imagen: "assets/disco.png", stock: 3, categoria: "accesorios" }
             ]
         }
     },
@@ -38,10 +42,19 @@ createApp({
     computed: {
 
         productosFiltrados() {
-            return this.productos.filter(p =>
-                p.nombre.toLowerCase().includes(this.textoBusqueda.toLowerCase())
-            )
+
+            return this.productos.filter(p => {
+
+                const coincideBusqueda =
+                    p.nombre.toLowerCase().includes(this.textoBusqueda.toLowerCase())
+
+                const coincideCategoria =
+                    !this.categoriaSeleccionada || p.categoria === this.categoriaSeleccionada
+
+                return coincideBusqueda && coincideCategoria
+            })
         },
+
 
         totalCarrito() {
             return this.carrito.reduce(
@@ -59,6 +72,7 @@ createApp({
 
     // Funciones de la app: Aquí van funciones que cambian datos cuando el usuario hace algo.
     methods: {
+
 
         agregarAlCarrito(producto) {
 
@@ -107,7 +121,19 @@ createApp({
 
         finalizarCompra() {
             this.pasoCheckout = 3
-        }
+        },
+
+        seleccionarCategoria(categoria) {
+
+            if (this.categoriaSeleccionada === categoria) {
+                this.categoriaSeleccionada = null // si presionas la misma categoría se desactiva
+            } else {
+                this.categoriaSeleccionada = categoria
+            }
+
+        },
+
+        
 
     }
 

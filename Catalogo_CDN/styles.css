@@ -77,7 +77,41 @@ body {
 }
 
 
+/* Categorías */
 
+.category-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+}
+
+.category-tag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 12px 20px;
+    border-radius: 30px;
+
+    background: #ffffff;
+    color: #444;
+
+    font-weight: 500;
+    cursor: pointer;
+
+    transition: all 0.25s ease;
+}
+
+.category-tag:hover {
+    background: #ece6ff;
+    color: #5a3df0;
+}
+
+.category-tag.active {
+    background: #7c4dff;
+    color: white;
+}
 
 /* Cards */
 .card-tech {
@@ -137,4 +171,26 @@ body {
 .btn-tech:hover {
     background-color: #1e3888;
     transform: scale(1.03);
+}
+
+/* Footer */
+.footer-tech {
+    background-color: #222;
+    color: #fff;
+}
+
+.footer-tech a {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.footer-tech a:hover {
+    color: #ccc;
+    text-decoration: none;
+}
+
+/* Social icon sizing */
+.footer-tech i {
+    font-size: 1.2rem;
+    vertical-align: middle;
 }
