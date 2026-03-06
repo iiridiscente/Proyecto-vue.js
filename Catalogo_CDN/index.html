@@ -29,17 +29,16 @@
 
 
     <div id="app"> <!-- Esta es la raiz de Vue-->
-
         <!-- Navbar -->
-        <section class="navbar">
-            <nav class="navbar navbar-tech sticky-top">
+        <div class="navbar-wrapper sticky-top">
+            <nav class="navbar navbar-tech ">
                 <div class="container-fluid">
                     <a class="navbar-brand">TechMarket</a>
 
                     <!-- Icono carrito -->
-                    <a href="#" class="position-relative" @click="mostrarCarrito = !mostrarCarrito">
+                    <a href="#" class="carrito-btn position-relative" @click.prevent="mostrarCarrito = !mostrarCarrito">
                         <span class="material-symbols-outlined">shopping_cart</span>
-                        <span v-if="carrito.length" class="badge ...">
+                        <span v-if="carrito.length" class="badge-carrito">
                             {{ carrito.reduce((total, item) => total + item.cantidad, 0) }}
                         </span>
                     </a>
@@ -51,11 +50,14 @@
                 <div v-if="mostrarCarrito" class="modal-carrito" @click.self="mostrarCarrito = false">
                     <div class="modal-content">
                         <h4>
-                            Carrito
+                            🛒 Carrito
                             <button class="cerrar" @click="mostrarCarrito = false">✕</button>
                         </h4>
 
-                        <ul class="list-group">
+                        <!-- Carrito vacío -->
+                        <p v-if="!carrito.length" class="carrito-vacio">Tu carrito está vacío</p>
+
+                        <ul v-else class="list-group">
                             <li class="list-group-item" v-for="(item, index) in carrito" :key="item.id">
                                 <div class="producto-info">
                                     <span class="nombre">{{ item.nombre }}</span>
@@ -63,25 +65,28 @@
                                 </div>
 
                                 <div class="cantidad-botones">
-                                    <button @click="disminuirCantidad(item)">-</button>
+                                    <button @click="disminuirCantidad(item)">−</button>
                                     <span>{{ item.cantidad }}</span>
                                     <button @click="aumentarCantidad(item)">+</button>
-                                    <button @click="eliminarDelCarrito(index)">eliminar</button>
+                                    <button class="btn-eliminar" @click="eliminarDelCarrito(index)">
+                                        <span class="material-symbols-outlined">delete</span>
+                                    </button>
                                 </div>
                             </li>
                         </ul>
 
-                        <div class="total">
-                            <span>Total:</span>
+                        <div v-if="carrito.length" class="total">
+                            <span>Total</span>
                             <span>${{ totalCarrito.toLocaleString() }}</span>
                         </div>
 
-                        <button class="btn btn-tech btn-compra" @click="abrirCheckout">Continuar Compra</button>
+                        <button v-if="carrito.length" class="btn btn-tech btn-compra" @click="abrirCheckout">
+                            Continuar Compra
+                        </button>
                     </div>
                 </div>
             </transition>
-        </section>
-
+        </div>
 
         <!-- Section: Hero -->
 
@@ -98,7 +103,6 @@
                         <div class="carousel-caption">
                             <h1>Explora la tecnología del futuro</h1>
                             <p>Realidad virtual y periféricos innovadores</p>
-                            <button class="btn btn-tech">Ver productos</button>
                         </div>
 
                     </div>
@@ -111,7 +115,6 @@
                         <div class="carousel-caption">
                             <h1>Crea sin límites</h1>
                             <p>Tablets y herramientas para creadores digitales</p>
-                            <button class="btn btn-tech">Explorar accesorios</button>
                         </div>
 
                     </div>
@@ -124,7 +127,6 @@
                         <div class="carousel-caption">
                             <h1>Potencia tu trabajo</h1>
                             <p>Notebooks y monitores para tu setup ideal</p>
-                            <button class="btn btn-tech">Ver notebooks</button>
                         </div>
 
                     </div>
@@ -228,6 +230,64 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección: Beneficios -->
+        <section class="benefits py-5">
+            <div class="container">
+
+                <div class="row g-4">
+
+                    <!-- Despacho gratis -->
+                    <div class="col-md-4">
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <span class="material-symbols-outlined">local_shipping</span>
+                            </div>
+                            <h5>Despacho gratis</h5>
+                            <p>Envío sin costo a todo Chile en compras sobre $29.990. Recibe tu pedido en 2 a 5 días
+                                hábiles directamente en tu puerta.</p>
+                        </div>
+                    </div>
+
+                    <!-- Retiro en tienda -->
+                    <div class="col-md-4">
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <span class="material-symbols-outlined">storefront</span>
+                            </div>
+                            <h5>Retiro en tienda</h5>
+                            <p>Disponible en nuestras dos sucursales. Tu pedido estará listo en menos de 2 horas.</p>
+                            <ul class="benefit-list">
+                                <!-- Sucursal 1 -->
+                                <li>
+                                    <span class="material-symbols-outlined">location_on</span>
+                                    <span><strong>Santiago Centro</strong> — Av. Libertador Bernardo O'Higgins 1234,
+                                        piso 2</span>
+                                </li>
+                                <!-- Sucursal 2 -->
+                                <li>
+                                    <span class="material-symbols-outlined">location_on</span>
+                                    <span><strong>Providencia</strong> — Av. Providencia 2608, local 14</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Garantía -->
+                    <div class="col-md-4">
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <span class="material-symbols-outlined">verified_user</span>
+                            </div>
+                            <h5>Garantía asegurada</h5>
+                            <p>Todos nuestros productos cuentan con garantía mínima de 12 meses. Si algo falla, lo
+                                resolvemos sin vueltas.</p>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -352,21 +412,38 @@
 
         </div>
 
+
+        <!-- Footer -->
+        <footer class="footer-tech bg-dark text-white py-4">
+            <div class="container text-center">
+                <p>© 2026 TechMarket. Todos los derechos reservados.</p>
+                <p>Contacto: <a href="mailto:info@techmarket.com" class="text-white">info@techmarket.com</a> | Tel: +1
+                    234
+                    567 890</p>
+                <p>Síguenos en redes sociales:
+                    <a href="#" class="text-white me-2"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="text-white me-2"><i class="bi bi-twitter"></i></a>
+                    <a href="#" class="text-white"><i class="bi bi-instagram"></i></a>
+                </p>
+            </div>
+        </footer>
+
+
+        <!-- Toast: producto añadido -->
+        <transition name="toast">
+            <div v-if="toast.visible" class="toast-tech">
+                <span class="material-symbols-outlined">check_circle</span>
+                {{ toast.mensaje }}
+            </div>
+        </transition>
+
+
+
     </div>
 
-    <!-- Footer -->
-    <footer class="footer-tech bg-dark text-white py-4">
-        <div class="container text-center">
-            <p>© 2026 TechMarket. Todos los derechos reservados.</p>
-            <p>Contacto: <a href="mailto:info@techmarket.com" class="text-white">info@techmarket.com</a> | Tel: +1 234
-                567 890</p>
-            <p>Síguenos en redes sociales:
-                <a href="#" class="text-white me-2"><i class="bi bi-facebook"></i></a>
-                <a href="#" class="text-white me-2"><i class="bi bi-twitter"></i></a>
-                <a href="#" class="text-white"><i class="bi bi-instagram"></i></a>
-            </p>
-        </div>
-    </footer>
+
+
+
 
     <!-- Js con la información del catálogo -->
     <script src="app.js"></script>
