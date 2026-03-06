@@ -21,6 +21,11 @@ createApp({
 
             carrito: [],
 
+            toast: {
+                visible: false,
+                mensaje: ""
+            },
+
             categoriaSeleccionada: null,
 
             productos: [
@@ -81,12 +86,18 @@ createApp({
             if (item) {
                 item.cantidad++
             } else {
-                this.carrito.push({
-                    ...producto,
-                    cantidad: 1
-                })
+                this.carrito.push({ ...producto, cantidad: 1 })
             }
 
+            // Mostrar toast
+            this.toast.mensaje = `✓ ${producto.nombre} añadido al carrito`
+            this.toast.visible = true
+
+            // Se oculta solo después de 2.5 segundos
+            setTimeout(() => {
+                this.toast.visible = false
+            }, 2500)
+            
         },
 
         aumentarCantidad(item) {
@@ -94,13 +105,12 @@ createApp({
         },
 
         disminuirCantidad(item) {
-
             if (item.cantidad > 1) {
                 item.cantidad--
             } else {
-                this.eliminarDelCarrito(item)
+                const index = this.carrito.indexOf(item)
+                this.eliminarDelCarrito(index)
             }
-
         },
 
         eliminarDelCarrito(index) {
